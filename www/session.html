@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+账号：<input type="text" value="xiaoqiang222" id="account">
+密码：<input type="text" value="124556" id="password">
+<div></div>
+<button id="login">login in</button>
+<button id="loginout">login out</button>
+<button id ='getuser'>getuserinfo</button>
+<button>clear log</button>
+
+</body>
+
+<script>
+window.onload = function () {
+
+    function json(data) {
+        var arr = [];
+        var index =0 ;
+        for (var a in data) {
+            arr[index++] = `${a}=${data[a]}`;
+        }
+        return arr.join('&')
+    }
+
+    function ajax(method,url,data) {
+        var http = new XMLHttpRequest();
+        http.open(method,url);
+        http.onreadystatechange = function (res) {
+
+        };
+        http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
+
+        http.send(method==='get'?'':json(data));
+    }
+    function Id(id) {
+        return document.getElementById(id);
+    }
+
+    Id('login').addEventListener('click',()=>{
+        ajax('post','http://localhost:5555/login',{account:Id('account').value,b:Id('password').value})
+    })
+    Id('loginout').addEventListener('click',()=>{
+        ajax('post','http://localhost:5555/loginout')
+    })
+    Id('getuser').addEventListener('click',()=>{
+        ajax('post','http://localhost:5555/getuser')
+    })
+
+}
+</script>
+</html>
